@@ -291,7 +291,7 @@ store.subscribe(() => {
         render(){
           return(
             <div>
-              <h1></h1>
+              <h1>Todos</h1>
               <input 
                 type='text'
                 placeholder='Add Todo'
@@ -305,11 +305,26 @@ store.subscribe(() => {
       }
 
       class Goals extends React.Component{
+        addItem=(e)=>{
+          e.preventDefault()
+          const name = this.input.value
+          this.input.value =''
+
+          this.props.store.dispatch(addGoalAction({
+            id: generateId(),
+            name,
+          }))
+        }
         render(){
           return(
             <div>
-              GOALS
-                  
+              <h1>Goals</h1>
+              <input 
+                type='text'
+                placeholder='Add Goals'
+                ref={(input) => this.input =input}
+              />
+               <button onClick={this.addItem}>Add Todo</button>
                <List/>
             </div>
           )
@@ -321,7 +336,7 @@ store.subscribe(() => {
           return( 
             <div>
               <Todos store={this.props.store}/>
-              <Goals />
+              <Goals store={this.props.store}/>
             </div>
           )
         }
